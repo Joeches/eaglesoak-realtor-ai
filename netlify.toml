@@ -1,1 +1,22 @@
+# =============================
+# eaglesoak-realty-ai | netlify.toml
+# =============================
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# ✅ Redirect all requests to index.html (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ✅ Environment variables (optional)
+[template.environment]
+  VITE_SUPABASE_URL = "your-supabase-url"
+  VITE_SUPABASE_ANON_KEY = "your-anon-key"
+  VITE_HF_TOKEN = "your-huggingface-token"
+  VITE_QROG_API_KEY = "your-qrog-key"
 
