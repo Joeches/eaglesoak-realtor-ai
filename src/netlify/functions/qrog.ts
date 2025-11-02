@@ -1,4 +1,3 @@
-
 // netlify/functions/qrog.ts
 // Minimal, secure proxy to Qrog API
 // Environment required: QROG_API_KEY
