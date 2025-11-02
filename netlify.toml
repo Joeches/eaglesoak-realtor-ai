@@ -1,22 +1,23 @@
-# =============================
-# eaglesoak-realty-ai | netlify.toml
-# =============================
+# 🦅 eaglesoak-realty-ai | Netlify Build Configuration
 
 [build]
-  command = "npm run build"
+  # If your project root is the repo root, leave base blank
+  base = ""
   publish = "dist"
-  functions = "netlify/functions"
+  command = "npm run build"
 
-# ✅ Redirect all requests to index.html (SPA)
+[functions]
+  directory = "netlify/functions"
+
+# Environment Variables for Production (you’ll set these in Netlify UI)
+[template.environment]
+  VITE_SUPABASE_URL = "Your Supabase Project URL"
+  VITE_SUPABASE_ANON_KEY = "Your Supabase Anon Key"
+  VITE_QROG_API_KEY = "Your Qrog API Key"
+  VITE_HF_TOKEN = "Your Hugging Face API Token"
+
+# Redirects (for SPA routing support)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-# ✅ Environment variables (optional)
-[template.environment]
-  VITE_SUPABASE_URL = "your-supabase-url"
-  VITE_SUPABASE_ANON_KEY = "your-anon-key"
-  VITE_HF_TOKEN = "your-huggingface-token"
-  VITE_QROG_API_KEY = "your-qrog-key"
-
