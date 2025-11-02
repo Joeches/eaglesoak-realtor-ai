@@ -1,142 +1,125 @@
-// src/pages/Home.tsx
-import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-type SampleProp = {
-  id: string;
-  title: string;
-  price: number;
-  currency?: string;
-  district: string;
-  city: string;
-  bedrooms: number;
-  bathrooms: number;
-  sqft: number;
-  image: string;
-  investment_index?: number;
-  market_sentiment?: number;
-};
-
-const SAMPLE_PROPS: SampleProp[] = [
+const properties = [
   {
-    id: "sample-asokoro-1",
-    title: "Panoramic 3-Bed Duplex — Asokoro Heights",
-    price: 180000000,
-    currency: "NGN",
-    district: "Asokoro",
-    city: "Abuja",
-    bedrooms: 3,
-    bathrooms: 4,
-    sqft: 2200,
-    image: "/assets/hero/abuja_villa.jpg",
-    investment_index: 8.4,
-    market_sentiment: 0.74
+    id: 1,
+    title: "Maitama Smart Luxury Villa",
+    location: "Maitama, Abuja",
+    price: "$1,200,000",
+    image: "/src/assets/hero/maitama_tower.jpg",
+    features: ["6 Bedrooms", "AI Energy Control", "Infinity Pool", "Smart Security"],
   },
   {
-    id: "sample-wuse-1",
-    title: "Modern 2-Bed Apartment — Wuse II SmartBlock",
-    price: 95000000,
-    currency: "NGN",
-    district: "Wuse II",
-    city: "Abuja",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 900,
-    image: "/assets/hero/maitama_tower.jpg",
-    investment_index: 7.1,
-    market_sentiment: 0.63
+    id: 2,
+    title: "Gwarinpa AI-Enabled Estate",
+    location: "Gwarinpa, Abuja",
+    price: "$850,000",
+    image: "/src/assets/hero/gwarinpa_estate.jpg",
+    features: ["4 Bedrooms", "Solar Smart Roof", "Voice-Control Lighting", "24/7 Surveillance"],
   },
   {
-    id: "sample-gwarinpa-1",
-    title: "Family 4-Bed Semi-Detached — Gwarinpa Greenview",
-    price: 210000000,
-    currency: "NGN",
-    district: "Gwarinpa",
-    city: "Abuja",
-    bedrooms: 4,
-    bathrooms: 5,
-    sqft: 3200,
-    image: "/assets/hero/gwarinpa_estate.jpg",
-    investment_index: 8.8,
-    market_sentiment: 0.8
-  }
+    id: 3,
+    title: "Asokoro Skyline Penthouse",
+    location: "Asokoro, Abuja",
+    price: "$1,500,000",
+    image: "/src/assets/hero/abuja_villa.jpg",
+    features: ["7 Bedrooms", "Panoramic View", "Smart Glass Walls", "Automated Concierge"],
+  },
 ];
 
-function formatPrice(n: number, currency = "NGN") {
-  return `${currency} ${Intl.NumberFormat("en-NG").format(n)}`;
-}
-
-export default function Home(): JSX.Element {
+const Home = () => {
   return (
-    <div className="space-y-8">
-      {/* HERO */}
-      <section className="bg-gradient-to-r from-white to-slate-50 rounded-lg p-8 shadow-sm">
-        <div className="md:flex md:items-center md:justify-between">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">EaglesOak Realty AI — Discover smarter property matches</h1>
-            <p className="mt-3 text-slate-600 max-w-xl">
-              Per-property AI advisors, market sentinel intelligence, and smart investment signals — built for Abuja, ready for the world.
+    <div className="pt-20">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-primary to-secondary text-white">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between py-20 px-6">
+          <motion.div
+            className="md:w-1/2 space-y-6"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <h1 className="text-5xl font-extrabold leading-tight">
+              Discover Futuristic Homes in <span className="text-accent">Abuja</span>
+            </h1>
+            <p className="text-lg text-gray-100">
+              Experience AI-driven real estate that adapts to your lifestyle.
+              From smart villas to voice-controlled estates, your dream home awaits.
             </p>
-            <div className="mt-6 flex gap-3">
-              <Link to="/listings" className="bg-teal-600 text-white px-4 py-2 rounded-md shadow">Browse Listings</Link>
-              <Link to="/ai-tools" className="px-4 py-2 rounded-md border border-slate-200 text-slate-700">Explore AI Tools</Link>
-            </div>
-          </div>
+            <Link
+              to="/listings"
+              className="bg-accent text-dark font-semibold px-6 py-3 rounded-full shadow hover:bg-yellow-400 transition"
+            >
+              Explore Properties
+            </Link>
+          </motion.div>
 
-          <div className="mt-6 md:mt-0 grid grid-cols-1 gap-4 w-full md:w-96">
-            <div className="bg-white p-3 rounded shadow-sm">
-              <div className="text-xs text-slate-500">Market Snapshot — Abuja</div>
-              <div className="mt-2 flex items-baseline gap-3">
-                <div className="text-2xl font-semibold">+6.3%</div>
-                <div className="text-sm text-slate-500">price uplift (last 3 months)</div>
-              </div>
-            </div>
-            <div className="bg-white p-3 rounded shadow-sm">
-              <div className="text-xs text-slate-500">Top Neighbourhood</div>
-              <div className="mt-2 font-medium">Asokoro • Demand Index 8.3</div>
-            </div>
-          </div>
+          <motion.div
+            className="md:w-1/2 mt-10 md:mt-0"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <img
+              src="/src/assets/hero/abuja_villa.jpg"
+              alt="Abuja Smart Villa"
+              className="rounded-2xl shadow-lg"
+            />
+          </motion.div>
         </div>
       </section>
 
-      {/* FEATURED 3 PROPS */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4">Featured — Abuja</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {SAMPLE_PROPS.map((p) => (
-            <article key={p.id} className="bg-white rounded-lg overflow-hidden shadow">
-              <img src={p.image} alt={p.title} className="w-full h-44 object-cover" />
-              <div className="p-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-semibold">{p.title}</h3>
-                    <p className="text-sm text-slate-500 mt-1">{p.district}, {p.city}</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-teal-600 font-bold">{formatPrice(p.price, p.currency)}</div>
-                    <div className="text-xs text-slate-500">{p.bedrooms} bd • {p.bathrooms} ba • {p.sqft} sqft</div>
-                  </div>
+      {/* Featured Properties */}
+      <section className="py-20 bg-light">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-dark mb-10 text-center">
+            Featured Smart Properties in Abuja
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {properties.map((property) => (
+              <motion.div
+                key={property.id}
+                className="bg-white shadow-card rounded-2xl overflow-hidden hover:shadow-lg transition"
+                whileHover={{ scale: 1.02 }}
+              >
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold text-primary">{property.title}</h3>
+                  <p className="text-sm text-gray-600">{property.location}</p>
+                  <p className="text-lg font-bold text-secondary mt-2">{property.price}</p>
+                  <ul className="mt-3 text-sm text-gray-700 space-y-1">
+                    {property.features.map((feat) => (
+                      <li key={feat}>• {feat}</li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={`/property/${property.id}`}
+                    className="block mt-4 text-center bg-primary text-white py-2 rounded-lg hover:bg-secondary"
+                  >
+                    View Details
+                  </Link>
                 </div>
-
-                <div className="mt-3 flex items-center justify-between">
-                  <Link to={`/property/${p.id}`} className="inline-block bg-slate-800 text-white px-3 py-1 rounded-sm text-sm">View</Link>
-                  <div className="text-xs text-slate-500">Investment Index: <span className="font-semibold">{p.investment_index}</span></div>
-                </div>
-              </div>
-            </article>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* QUICK CTA */}
-      <section className="bg-white p-6 rounded shadow-sm">
-        <h3 className="text-lg font-semibold">Want your property AI-indexed?</h3>
-        <p className="text-slate-600 mt-2">Realtors: create a free account and upload your listing — AI will auto-generate metadata and chat context.</p>
-        <div className="mt-4">
-          <Link to="/dashboard" className="bg-teal-600 text-white px-4 py-2 rounded-md">Go to Dashboard</Link>
-        </div>
-      </section>
+      {/* Floating Chatbot Button */}
+      <button
+        className="fixed bottom-8 right-8 bg-secondary hover:bg-primary text-white p-4 rounded-full shadow-xl transition"
+        title="Chat with AI Realtor"
+        onClick={() => alert('AI Realtor Chatbot Coming Soon!')}
+      >
+        💬
+      </button>
     </div>
   );
-}
+};
 
+export default Home;
