@@ -1,39 +1,71 @@
-// src/components/layout/Navbar.tsx
-import React from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
-export default function Navbar(): JSX.Element {
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Listings", path: "/listings" },
+    { name: "AI Tools", path: "/ai-tools" },
+    { name: "Realtor Dashboard", path: "/realtor-dashboard" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
+
   return (
-    <header className="bg-white border-b">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <svg className="w-9 h-9 text-teal-600" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path d="M12 2L2 7v6c0 5 4.5 9 10 9s10-4 10-9V7l-10-5z" fill="currentColor" />
-          </svg>
-          <span className="font-semibold text-lg">EaglesOak Realty AI</span>
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+        <Link to="/" className="flex items-center space-x-2">
+          <img src="/src/assets/logo.svg" alt="Eaglesoak Realty AI" className="w-8 h-8" />
+          <span className="text-xl font-bold text-primary">Eaglesoak Realty AI</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-4">
-          <NavLink to="/listings" className={({ isActive }) => isActive ? "text-teal-600 font-medium" : "text-slate-700 hover:text-teal-600"}>
-            Listings
-          </NavLink>
-          <NavLink to="/ai-tools" className={({ isActive }) => isActive ? "text-teal-600 font-medium" : "text-slate-700 hover:text-teal-600"}>
-            AI Tools
-          </NavLink>
-          <NavLink to="/about" className={({ isActive }) => isActive ? "text-teal-600 font-medium" : "text-slate-700 hover:text-teal-600"}>
-            About
-          </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => isActive ? "text-teal-600 font-medium" : "text-slate-700 hover:text-teal-600"}>
-            Contact
-          </NavLink>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link to="/dashboard" className="hidden md:inline-block bg-teal-600 text-white px-3 py-1 rounded-md text-sm shadow-sm">Dashboard</Link>
-          <Link to="/auth" className="text-sm text-slate-600 hover:text-slate-900">Sign in</Link>
+        <div className="hidden md:flex space-x-6">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) =>
+                `font-medium hover:text-secondary transition ${
+                  isActive ? "text-secondary" : "text-dark"
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
         </div>
-      </div>
-    </header>
-  );
-}
 
+        <button
+          onClick={toggleMenu}
+          className="md:hidden text-dark focus:outline-none"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md border-t border-gray-100 animate-fadeIn">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className="block px-6 py-3 text-dark hover:bg-gray-50 hover:text-secondary"
+              onClick={() => setIsOpen(false)}
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
